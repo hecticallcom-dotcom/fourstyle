@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Fourstyle</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#f5f6fa;color:#1a1a2e;min-height:100vh;display:flex}
+    .sidebar{width:240px;background:#fff;border-right:1px solid #e8e9ef;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s}
+    .sidebar-logo{padding:20px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #e8e9ef}
+    .sidebar-logo img{width:36px;height:36px;border-radius:50%;object-fit:cover}
+    .sidebar-logo span{font-weight:700;font-size:16px}
+    .sidebar-logo span em{color:#c9a227;font-style:normal}
+    .sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
+    .nav-item{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#64748b;text-decoration:none;font-size:14px;font-weight:500;margin-bottom:2px;cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:all .2s;font-family:inherit}
+    .nav-item:hover{background:#f8f9fc;color:#1a1a2e}
+    .nav-item.active{background:#fef9e7;color:#c9a227}
+    .nav-item i{width:20px;text-align:center;font-size:15px}
+    .sidebar-footer{padding:16px;border-top:1px solid #e8e9ef}
+    .sidebar-footer .user-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .sidebar-footer .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#c9a227,#e0b83a);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+    .logout-btn{width:100%;padding:9px;border:1px solid #e8e9ef;border-radius:8px;background:#fff;color:#ef4444;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+    .logout-btn:hover{background:#fef2f2}
+    .main{margin-left:240px;flex:1;min-height:100vh;display:flex;flex-direction:column}
+    .topbar{background:#fff;border-bottom:1px solid #e8e9ef;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+    .topbar h1{font-size:20px;font-weight:700}
+    .topbar p{font-size:13px;color:#94a3b8;margin-top:2px}
+    .topbar-actions{display:flex;gap:10px;align-items:center}
+    .btn{padding:9px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
+    .btn-outline{background:#fff;border:1px solid #e2e8f0;color:#475569}
+    .btn-outline:hover{background:#f8fafc}
+    .btn-primary{background:#c9a227;color:#1a1a2e}
+    .btn-primary:hover{background:#e0b83a}
+    .btn-success{background:#22c55e;color:#fff}
+    .btn-info{background:#3b82f6;color:#fff}
+    .btn-purple{background:#8b5cf6;color:#fff}
+    .btn-danger{background:#ef4444;color:#fff}
+    .btn-sm{padding:6px 11px;font-size:12px}
+    .content{padding:24px 28px;flex:1}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+    .stat-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #e8e9ef;transition:box-shadow .2s}
+    .stat-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+    .stat-card .stat-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+    .stat-card .stat-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px}
+    .stat-icon.gold{background:#fef9e7;color:#c9a227}
+    .stat-icon.green{background:#ecfdf5;color:#22c55e}
+    .stat-icon.blue{background:#eff6ff;color:#3b82f6}
+    .stat-icon.purple{background:#f5f3ff;color:#8b5cf6}
+    .stat-icon.orange{background:#fff7ed;color:#f97316}
+    .stat-icon.red{background:#fef2f2;color:#ef4444}
+    .stat-card h3{font-size:26px;font-weight:700;letter-spacing:-.5px}
+    .stat-card p{font-size:13px;color:#94a3b8;margin-top:4px}
+    .panel{background:#fff;border-radius:14px;border:1px solid #e8e9ef;overflow:hidden}
+    .panel-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e8e9ef;flex-wrap:wrap;gap:12px}
+    .panel-header h2{font-size:16px;font-weight:700}
+    .panel-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .search-box{position:relative}
+    .search-box input{padding:8px 12px 8px 34px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;width:220px;font-family:inherit;outline:none}
+    .search-box input:focus{border-color:#c9a227}
+    .search-box i{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:13px}
+    .filter-tabs{display:flex;gap:4px;background:#f1f5f9;padding:3px;border-radius:8px}
+    .filter-tab{padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;border:none;background:transparent;color:#64748b;cursor:pointer;font-family:inherit}
+    .filter-tab.active{background:#fff;color:#1a1a2e;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    thead th{text-align:left;padding:12px 16px;background:#f8fafc;color:#64748b;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.3px;border-bottom:1px solid #e8e9ef;white-space:nowrap}
+    tbody td{padding:14px 16px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+    tbody tr:hover{background:#fafbfc}
+    .order-id{font-weight:700;color:#c9a227}
+    .customer-cell strong{display:block;font-size:13px}
+    .customer-cell span{font-size:12px;color:#94a3b8}
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
+    .badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+    .badge-pending{background:#fff7ed;color:#f97316}
+    .badge-confirmed{background:#ecfdf5;color:#22c55e}
+    .badge-shipped{background:#eff6ff;color:#3b82f6}
+    .badge-delivered{background:#f5f3ff;color:#8b5cf6}
+    .actions{display:flex;gap:6px;flex-wrap:wrap}
+    .empty-state{text-align:center;padding:60px 20px;color:#94a3b8}
+    .empty-state i{font-size:40px;margin-bottom:12px;opacity:.4}
+    .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+    .modal-bg.active{display:flex}
+    .modal-box{background:#fff;border-radius:16px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;padding:28px;position:relative;animation:slideUp .3s ease}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .modal-box h3{font-size:18px;margin-bottom:16px}
+    .modal-close{position:absolute;top:16px;right:16px;background:#f1f5f9;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;font-size:13px}
+    .detail-grid strong{color:#64748b;font-weight:500;display:block;font-size:11px;margin-bottom:2px}
+    .item-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f1f5f9;font-size:13px}
+    .menu-toggle{display:none;background:none;border:none;font-size:20px;cursor:pointer;padding:6px}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99}
+    .sidebar-overlay.active{display:block}
+    .section{display:none}
+    .section.active{display:block}
+    @media(max-width:1024px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:768px){
+      .sidebar{transform:translateX(-100%)}
+      .sidebar.open{transform:translateX(0)}
+      .main{margin-left:0}
+      .menu-toggle{display:block}
+      .stats-grid{grid-template-columns:1fr 1fr;gap:10px}
+      .stat-card h3{font-size:20px}
+      .content{padding:16px}
+      .topbar{padding:12px 16px}
+      .search-box input{width:140px}
+      .detail-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:480px){.stats-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="images/logo.jpeg" alt="Fourstyle">
+      <span>Four<em>style</em></span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-section="dashboard" onclick="showSection('dashboard')"><i class="fas fa-th-large"></i> Dashboard</button>
+      <button class="nav-item" data-section="orders" onclick="showSection('orders')"><i class="fas fa-shopping-bag"></i> Orders</button>
+      <button class="nav-item" data-section="confirmed" onclick="showSection('confirmed')"><i class="fas fa-check-circle"></i> Confirmed</button>
+      <button class="nav-item" data-section="daily" onclick="showSection('daily')"><i class="fas fa-calendar-day"></i> Daily Report</button>
+      <button class="nav-item" data-section="inventory" onclick="showSection('inventory')"><i class="fas fa-boxes"></i> Inventory</button>
+      <button class="nav-item" data-section="stats" onclick="showSection('stats')"><i class="fas fa-chart-bar"></i> Analytics</button>
+      <a href="index.html" class="nav-item" style="margin-top:20px"><i class="fas fa-store"></i> View Store</a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-row">
+        <div class="avatar" id="adminAvatar">A</div>
+        <div><strong id="adminName" style="font-size:13px">Admin</strong><div style="font-size:11px;color:#94a3b8">Store Owner</div></div>
+      </div>
+      <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="menu-toggle" onclick="openSidebar()"><i class="fas fa-bars"></i></button>
+        <div><h1 id="pageTitle">Dashboard</h1><p>Manage orders, customers & store performance</p></div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-outline" onclick="exportExcel()"><i class="fas fa-file-excel"></i> Export Excel</button>
+        <button class="btn btn-primary" onclick="location.reload()"><i class="fas fa-sync-alt"></i> Refresh</button>
+      </div>
+    </div>
+    <div class="content">
+      <div class="section active" id="section-dashboard">
+        <div style="background:linear-gradient(135deg,#1a1a2e,#2d2d44);color:#fff;border-radius:14px;padding:18px 22px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:12px;opacity:.7;margin-bottom:4px">Aaj ka Summary</div>
+            <div style="font-size:18px;font-weight:700" id="dashTodayLabel">Loading...</div>
+          </div>
+          <div style="display:flex;gap:28px;flex-wrap:wrap;">
+            <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:#c9a227" id="dashTodayOrders">0</div><div style="font-size:11px;opacity:.7">Orders</div></div>
+            <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:#22c55e" id="dashTodayConfirm">0</div><div style="font-size:11px;opacity:.7">Confirmed</div></div>
+            <div style="text-align:center"><div style="font-size:22px;font-weight:700;color:#e0b83a" id="dashTodaySales">0</div><div style="font-size:11px;opacity:.7">Sale (Rs)</div></div>
+            <div style="text-align:center"><div style="font-size:22px;font-weight:700" id="dashPending">0</div><div style="font-size:11px;opacity:.7">Pending</div></div>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon gold"><i class="fas fa-shopping-bag"></i></div></div><h3 id="statOrders">0</h3><p>Total Orders</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon green"><i class="fas fa-rupee-sign"></i></div></div><h3 id="statRevenue">0</h3><p>Total Revenue (Rs)</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon orange"><i class="fas fa-clock"></i></div></div><h3 id="statPending">0</h3><p>Pending Orders</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon blue"><i class="fas fa-check"></i></div></div><h3 id="statConfirmed">0</h3><p>Confirmed Orders</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon purple"><i class="fas fa-eye"></i></div></div><h3 id="statVisits">0</h3><p>Website Visits</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon blue"><i class="fas fa-sign-in-alt"></i></div></div><h3 id="statLogins">0</h3><p>Total Logins</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon green"><i class="fas fa-users"></i></div></div><h3 id="statUsers">0</h3><p>Registered Users</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon red"><i class="fas fa-truck"></i></div></div><h3 id="statShipped">0</h3><p>Shipped / Delivered</p></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><h2>Recent Orders</h2><button class="btn btn-outline btn-sm" onclick="showSection('orders')">View All</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Order ID</th><th>Customer</th><th>Total</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead><tbody id="recentOrdersBody"></tbody></table></div>
+        </div>
+      </div>
+      <div class="section" id="section-orders">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>All Orders</h2>
+            <div class="panel-tools">
+              <div class="search-box"><i class="fas fa-search"></i><input type="text" id="orderSearch" placeholder="Search name, phone, ID..." oninput="filterOrders()"></div>
+              <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all" onclick="setFilter('all')">All</button>
+                <button class="filter-tab" data-filter="Pending" onclick="setFilter('Pending')">Pending</button>
+                <button class="filter-tab" data-filter="Confirmed" onclick="setFilter('Confirmed')">Confirmed</button>
+                <button class="filter-tab" data-filter="Shipped" onclick="setFilter('Shipped')">Shipped</button>
+                <button class="filter-tab" data-filter="Delivered" onclick="setFilter('Delivered')">Delivered</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-wrap"><table><thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Phone / Email</th><th>Total</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead><tbody id="allOrdersBody"></tbody></table></div>
+        </div>
+      </div>
+      <div class="section" id="section-confirmed">
+        <div class="panel">
+          <div class="panel-header"><h2>Confirmed & Completed Orders</h2><button class="btn btn-primary btn-sm" onclick="exportExcel('confirmed')"><i class="fas fa-file-excel"></i> Export to Excel</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Phone</th><th>Email</th><th>Address</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th></tr></thead><tbody id="confirmedBody"></tbody></table></div>
+        </div>
+      </div>
+
+      <div class="section" id="section-daily">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon gold"><i class="fas fa-sun"></i></div></div><h3 id="todayOrders">0</h3><p>Aaj ke Orders</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon green"><i class="fas fa-check"></i></div></div><h3 id="todayConfirmed">0</h3><p>Aaj Confirm</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon blue"><i class="fas fa-rupee-sign"></i></div></div><h3 id="todaySales">0</h3><p>Aaj ki Sale (Rs)</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon orange"><i class="fas fa-history"></i></div></div><h3 id="yesterdayOrders">0</h3><p>Kal ke Orders</p></div>
+        </div>
+        <div class="panel" style="margin-bottom:20px">
+          <div class="panel-header"><h2>Is Month — Daily Sales Chart</h2></div>
+          <div style="padding:20px" id="salesChart"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><h2>Is Month — Day by Day</h2></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Date</th><th>Orders</th><th>Confirmed</th><th>Sales (Rs)</th></tr></thead>
+              <tbody id="dailyTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="section-inventory">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon gold"><i class="fas fa-box"></i></div></div><h3 id="invTotalSold">0</h3><p>Total Units Sold</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon red"><i class="fas fa-exclamation-triangle"></i></div></div><h3 id="invLowStock">0</h3><p>Low / Out of Stock Alert</p></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><h2>Product Sales & Stock Status</h2>
+            <p style="font-size:12px;color:#94a3b8">Starting stock: 50 per product. Sold count orders se calculate</p>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Product</th><th>Sold</th><th>Remaining</th><th>Status</th></tr></thead>
+              <tbody id="inventoryBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="section-stats">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon purple"><i class="fas fa-eye"></i></div></div><h3 id="statVisits2">0</h3><p>Total Website Visits</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon blue"><i class="fas fa-sign-in-alt"></i></div></div><h3 id="statLogins2">0</h3><p>User Logins</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon green"><i class="fas fa-user-plus"></i></div></div><h3 id="statUsers2">0</h3><p>Registrations</p></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon gold"><i class="fas fa-percentage"></i></div></div><h3 id="statConversion">0%</h3><p>Order Conversion</p></div>
+        </div>
+        <div class="panel"><div class="panel-header"><h2>How it works</h2></div>
+          <div style="padding:20px;font-size:13px;line-height:1.8;color:#64748b">
+            <p>• Har visitor site open kare → <strong>Visit</strong> count badhega</p>
+            <p>• User login / signup → Login & Registration track</p>
+            <p>• Order place → Admin mein dikhega (Pending)</p>
+            <p>• Aap <strong>Confirm</strong> karein → Customer ko <strong>Email + WhatsApp</strong> (ya SMS)</p>
+            <p>• Confirmed orders Excel mein export</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-bg" id="detailModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeDetail()"><i class="fas fa-times"></i></button>
+      <h3 id="detailTitle">Order Details</h3>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script>
+    const session=JSON.parse(localStorage.getItem('fourstyle_session')||'null');
+    if(!session||session.role!=='admin'){alert('Access denied. Admin login required.');window.location.href='login.html';}
+    else{document.getElementById('adminName').textContent=session.name||'Admin';document.getElementById('adminAvatar').textContent=(session.name||'A').charAt(0).toUpperCase();}
+    function logout(){localStorage.removeItem('fourstyle_session');window.location.href='login.html';}
+    let allOrders=[],currentFilter='all',searchQuery='';
+    function dayKey(ts){const d=new Date(ts||Date.now());return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+    function openSidebar(){document.getElementById('sidebar').classList.add('open');document.getElementById('sidebarOverlay').classList.add('active');}
+    function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('active');}
+    function showSection(name){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+      const sec=document.getElementById('section-'+name);if(sec)sec.classList.add('active');
+      const nav=document.querySelector('[data-section="'+name+'"]');if(nav)nav.classList.add('active');
+      const titles={dashboard:'Dashboard',orders:'All Orders',confirmed:'Confirmed Orders',daily:'Daily Report',inventory:'Inventory',stats:'Analytics'};
+      document.getElementById('pageTitle').textContent=titles[name]||'Dashboard';closeSidebar();
+    }
+    function setFilter(f){currentFilter=f;document.querySelectorAll('.filter-tab').forEach(t=>t.classList.toggle('active',t.dataset.filter===f));renderAllOrders();}
+    function filterOrders(){searchQuery=(document.getElementById('orderSearch')?.value||'').toLowerCase();renderAllOrders();}
+    function badgeClass(s){s=(s||'Pending').toLowerCase();if(s==='confirmed')return'badge-confirmed';if(s==='shipped')return'badge-shipped';if(s==='delivered')return'badge-delivered';return'badge-pending';}
+    function actionButtons(o){
+      let h=`<button class="btn btn-outline btn-sm" onclick="viewDetail('${o.id}')"><i class="fas fa-eye"></i></button>`;
+      if(o.status==='Pending')h+=`<button class="btn btn-success btn-sm" onclick="confirmOrder('${o.id}')"><i class="fas fa-check"></i> Confirm</button>`;
+      if(o.status==='Confirmed')h+=`<button class="btn btn-info btn-sm" onclick="updateStatus('${o.id}','Shipped')">Ship</button>`;
+      if(o.status==='Shipped')h+=`<button class="btn btn-purple btn-sm" onclick="updateStatus('${o.id}','Delivered')">Deliver</button>`;
+      h+=`<button class="btn btn-danger btn-sm" onclick="deleteOrder('${o.id}')"><i class="fas fa-trash"></i></button>`;
+      return h;
+    }
+    function orderRow(o,full){
+      const pe=full?`<td><div class="customer-cell"><strong>${o.phone||'-'}</strong><span>${o.email||''}</span></div></td>`:'';
+      const d=full?`<td style="white-space:nowrap;font-size:12px;color:#94a3b8">${o.date||''}</td>`:'';
+      return`<tr><td class="order-id">${o.id}</td>${d}<td><div class="customer-cell"><strong>${o.name||'-'}</strong><span>${o.address?o.address.substring(0,30)+'...':''}</span></div></td>${pe}<td><strong>Rs.${(o.total||0).toLocaleString()}</strong></td><td>${o.payment||'-'}</td><td><span class="badge ${badgeClass(o.status)}">${o.status||'Pending'}</span></td><td><div class="actions">${actionButtons(o)}</div></td></tr>`;
+    }
+    function renderStats(){
+      document.getElementById('statOrders').textContent=allOrders.length;
+      document.getElementById('statRevenue').textContent=allOrders.reduce((s,o)=>s+(o.total||0),0).toLocaleString();
+      document.getElementById('statPending').textContent=allOrders.filter(o=>o.status==='Pending').length;
+      document.getElementById('statConfirmed').textContent=allOrders.filter(o=>o.status==='Confirmed').length;
+      document.getElementById('statShipped').textContent=allOrders.filter(o=>o.status==='Shipped'||o.status==='Delivered').length;
+      // Today banner
+      const today=dayKey(Date.now());
+      const tOrders=allOrders.filter(o=>dayKey(o.timestamp)===today);
+      const el=document.getElementById('dashTodayLabel');
+      if(el) el.textContent=new Date().toLocaleDateString('en-PK',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+      const d1=document.getElementById('dashTodayOrders'); if(d1) d1.textContent=tOrders.length;
+      const d2=document.getElementById('dashTodayConfirm'); if(d2) d2.textContent=tOrders.filter(o=>o.status!=='Pending').length;
+      const d3=document.getElementById('dashTodaySales'); if(d3) d3.textContent=tOrders.reduce((s,o)=>s+(o.total||0),0).toLocaleString();
+      const d4=document.getElementById('dashPending'); if(d4) d4.textContent=allOrders.filter(o=>o.status==='Pending').length;
+      const recent=allOrders.slice(0,8);
+      const body=document.getElementById('recentOrdersBody');
+      body.innerHTML=!recent.length?'<tr><td colspan="6"><div class="empty-state"><i class="fas fa-inbox"></i><p>No orders yet</p></div></td></tr>':recent.map(o=>orderRow(o,false)).join('');
+    }
+    function renderAllOrders(){
+      let list=[...allOrders];
+      if(currentFilter!=='all')list=list.filter(o=>o.status===currentFilter);
+      if(searchQuery)list=list.filter(o=>(o.name||'').toLowerCase().includes(searchQuery)||(o.phone||'').includes(searchQuery)||(o.email||'').toLowerCase().includes(searchQuery)||(o.id||'').toLowerCase().includes(searchQuery));
+      const body=document.getElementById('allOrdersBody');
+      body.innerHTML=!list.length?'<tr><td colspan="8"><div class="empty-state"><i class="fas fa-inbox"></i><p>No orders found</p></div></td></tr>':list.map(o=>orderRow(o,true)).join('');
+    }
+    function renderConfirmed(){
+      const list=allOrders.filter(o=>['Confirmed','Shipped','Delivered'].includes(o.status));
+      const body=document.getElementById('confirmedBody');
+      if(!list.length){body.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="fas fa-check-circle"></i><p>No confirmed orders yet</p></div></td></tr>';return;}
+      body.innerHTML=list.map(o=>{
+        const items=(o.items||[]).map(i=>i.name+' x'+i.qty).join(', ');
+        return`<tr><td class="order-id">${o.id}</td><td style="font-size:12px;color:#94a3b8;white-space:nowrap">${o.date||''}</td><td>${o.name||'-'}</td><td>${o.phone||'-'}</td><td>${o.email||'-'}</td><td style="max-width:150px;font-size:12px">${o.address||'-'}</td><td style="max-width:180px;font-size:12px">${items}</td><td><strong>Rs.${(o.total||0).toLocaleString()}</strong></td><td>${o.payment||'-'}</td><td><span class="badge ${badgeClass(o.status)}">${o.status}</span></td></tr>`;
+      }).join('');
+    }
+    function viewDetail(id){
+      const o=allOrders.find(x=>x.id===id);if(!o)return;
+      document.getElementById('detailTitle').textContent='Order '+o.id;
+      let payExtra='';
+      if(o.paymentDetails){const pd=o.paymentDetails;if(pd.accountNumber)payExtra=`<div><strong>Account</strong>${pd.accountName||''} — ${pd.accountNumber}</div>`;else if(pd.bankName)payExtra=`<div><strong>Bank</strong>${pd.bankName} / ${pd.bankAccountTitle} / ${pd.bankAccountNumber}</div>`;}
+      document.getElementById('detailContent').innerHTML=`
+        <div class="detail-grid">
+          <div><strong>Customer</strong>${o.name||'-'}</div><div><strong>Phone</strong>${o.phone||'-'}</div>
+          <div><strong>Email</strong>${o.email||'-'}</div><div><strong>Payment</strong>${o.payment||'-'}</div>
+          <div><strong>Status</strong><span class="badge ${badgeClass(o.status)}">${o.status}</span></div>
+          <div><strong>Date</strong>${o.date||'-'}</div>${payExtra}
+        </div>
+        <div style="margin-bottom:12px"><strong style="font-size:11px;color:#64748b">Address</strong><div style="font-size:13px">${o.address||'-'}</div></div>
+        <div style="background:#f8fafc;border-radius:10px;padding:12px;margin-bottom:16px">
+          ${(o.items||[]).map(i=>`<div class="item-row"><span>${i.name} × ${i.qty}</span><span>Rs.${((i.price||0)*(i.qty||1)).toLocaleString()}</span></div>`).join('')}
+          <div class="item-row" style="font-weight:700;border:none;padding-top:10px"><span>Total</span><span>Rs.${(o.total||0).toLocaleString()}</span></div>
+        </div>
+        <div class="actions">${actionButtons(o)}</div>`;
+      document.getElementById('detailModal').classList.add('active');
+    }
+    function closeDetail(){document.getElementById('detailModal').classList.remove('active');}
+    function sendConfirmation(order){
+      if(!order)return;
+      if(order.email){
+        const subject='Your Fourstyle Order is Confirmed Successfully';
+        const message=`Dear ${order.name},\n\nYour order is confirmed successfully!\n\nOrder ID: ${order.id}\nTotal: Rs.${(order.total||0).toLocaleString()}\nPayment: ${order.payment}\n\nWe will process and ship your order soon.\n\nThank you for shopping with Fourstyle!\n\n— Fourstyle Team`;
+        fetch('https://formsubmit.co/ajax/'+encodeURIComponent(order.email),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:subject,message,name:'Fourstyle Orders'})}).catch(()=>{});
+      }
+      let phone=(order.phone||'').replace(/\D/g,'');
+      if(phone.startsWith('0'))phone='92'+phone.substring(1);
+      if(phone.length>=10&&!phone.startsWith('92'))phone='92'+phone;
+      const text=encodeURIComponent(`✅ Fourstyle Order Confirmed!\n\nAssalam o Alaikum ${order.name},\n\nAapka order confirm ho gaya hai.\nOrder ID: ${order.id}\nTotal: Rs.${(order.total||0).toLocaleString()}\nPayment: ${order.payment}\n\nJaldi ship kar diya jayega. Shukriya!\n— Fourstyle`);
+      if(phone.length>=11)window.open('https://wa.me/'+phone+'?text='+text,'_blank');
+      else if(order.phone)window.open('sms:'+order.phone+'?body='+text,'_blank');
+    }
+    function confirmOrder(id){
+      const order=allOrders.find(o=>o.id===id);
+      updateStatus(id,'Confirmed',()=>{sendConfirmation(order);alert('✅ Order confirmed!\nEmail + WhatsApp/SMS customer ko bhej diya.');closeDetail();});
+    }
+    function updateStatus(id,status,callback){
+      if(typeof firebase!=='undefined'&&firebase.database){
+        firebase.database().ref('orders/'+id+'/status').set(status).then(()=>{if(callback)callback();}).catch(err=>alert('Update failed: '+err.message));
+      }else{
+        const orders=JSON.parse(localStorage.getItem('fourstyle_orders')||'[]');
+        const o=orders.find(x=>x.id===id);
+        if(o){o.status=status;localStorage.setItem('fourstyle_orders',JSON.stringify(orders));allOrders=orders;refreshAll();if(callback)callback();}
+      }
+    }
+    function deleteOrder(id){
+      if(!confirm('Delete this order permanently?'))return;
+      if(typeof firebase!=='undefined'&&firebase.database)firebase.database().ref('orders/'+id).remove();
+      else{let orders=JSON.parse(localStorage.getItem('fourstyle_orders')||'[]');orders=orders.filter(o=>o.id!==id);localStorage.setItem('fourstyle_orders',JSON.stringify(orders));allOrders=orders;refreshAll();}
+      closeDetail();
+    }
+    function exportExcel(type){
+      let list=type==='confirmed'?allOrders.filter(o=>['Confirmed','Shipped','Delivered'].includes(o.status)):allOrders;
+      if(!list.length){alert('No orders to export');return;}
+      const headers=['Order ID','Date','Customer','Phone','Email','Address','Items','Total','Payment','Account Details','Status'];
+      const rows=list.map(o=>{
+        const items=(o.items||[]).map(i=>i.name+' x'+i.qty).join('; ');
+        let acc='';if(o.paymentDetails){const pd=o.paymentDetails;acc=pd.accountNumber?(pd.accountName||'')+' / '+pd.accountNumber:(pd.bankName||'')+' / '+(pd.bankAccountTitle||'')+' / '+(pd.bankAccountNumber||'');}
+        return[o.id,o.date,o.name,o.phone,o.email,o.address,items,o.total,o.payment,acc,o.status].map(c=>'"'+String(c||'').replace(/"/g,'""')+'"').join(',');
+      });
+      const csv=[headers.join(','),...rows].join('\n');
+      const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Fourstyle-Orders-'+new Date().toISOString().slice(0,10)+'.csv';a.click();
+    }
+    
+    const PRODUCT_START_STOCK = 50;
+    const productNames = {
+      1:"Hublot Diamond Cut Heavy Watch",2:"Tissot PRX 1853",3:"Rolex Jubilee Chain Semi Automatic",
+      4:"Cartier Tank",5:"Tissot 1853 Chronograph",6:"Rolex Oyster Semi Auto",7:"Patek Philippe Geneve",
+      8:"Rolex Oyster Datejust Truetone",9:"Rolex Automatic",10:"Rolex GMT Master Semi Automatic",
+      11:"Hublot Strap Classic",12:"Tissot PRX Semi Automatic",13:"Premium Black Cap",
+      14:"Classic Aviator Sunglasses",15:"Leather Wallet Brown",16:"Al Salah Dual Time Watch"
+    };
+
+    function dayKey(ts) {
+      const d = new Date(ts || Date.now());
+      return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    }
+    function renderDaily() {
+      const today = dayKey(Date.now());
+      const yest = dayKey(Date.now() - 86400000);
+      const todayOrders = allOrders.filter(o => dayKey(o.timestamp) === today);
+      const yestOrders = allOrders.filter(o => dayKey(o.timestamp) === yest);
+      document.getElementById('todayOrders').textContent = todayOrders.length;
+      document.getElementById('todayConfirmed').textContent = todayOrders.filter(o => o.status !== 'Pending').length;
+      document.getElementById('todaySales').textContent = todayOrders.reduce((s,o)=>s+(o.total||0),0).toLocaleString();
+      document.getElementById('yesterdayOrders').textContent = yestOrders.length;
+
+      // Month daily map
+      const now = new Date();
+      const ym = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+      const daysInMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+      const dayMap = {};
+      for (let d=1; d<=daysInMonth; d++) {
+        const k = ym+'-'+String(d).padStart(2,'0');
+        dayMap[k] = { orders:0, confirmed:0, sales:0 };
+      }
+      allOrders.forEach(o => {
+        const k = dayKey(o.timestamp);
+        if (!dayMap[k]) return;
+        dayMap[k].orders++;
+        if (o.status !== 'Pending') dayMap[k].confirmed++;
+        dayMap[k].sales += (o.total||0);
+      });
+      const maxSales = Math.max(1, ...Object.values(dayMap).map(x => x.sales));
+      const chart = document.getElementById('salesChart');
+      if (chart) {
+        chart.innerHTML = '<div style="display:flex;align-items:flex-end;gap:4px;height:160px;overflow-x:auto;padding-bottom:24px;">' +
+          Object.keys(dayMap).map(k => {
+            const h = Math.round((dayMap[k].sales / maxSales) * 140);
+            const day = k.split('-')[2];
+            return `<div style="flex:1;min-width:18px;text-align:center" title="${k}: Rs.${dayMap[k].sales}">
+              <div style="background:linear-gradient(180deg,#c9a227,#e0b83a);height:${h||2}px;border-radius:4px 4px 0 0;margin:0 auto;width:100%;max-width:28px;"></div>
+              <div style="font-size:9px;color:#94a3b8;margin-top:4px">${parseInt(day)}</div>
+            </div>`;
+          }).join('') + '</div>';
+      }
+      const tbody = document.getElementById('dailyTableBody');
+      if (tbody) {
+        const rows = Object.keys(dayMap).reverse().filter(k => dayMap[k].orders > 0 || k === today);
+        tbody.innerHTML = rows.length ? rows.map(k => `<tr>
+          <td><strong>${k}</strong>${k===today?' <span class="badge badge-confirmed">Today</span>':k===yest?' <span class="badge badge-pending">Yesterday</span>':''}</td>
+          <td>${dayMap[k].orders}</td>
+          <td>${dayMap[k].confirmed}</td>
+          <td><strong>Rs.${dayMap[k].sales.toLocaleString()}</strong></td>
+        </tr>`).join('') : '<tr><td colspan="4"><div class="empty-state"><p>Is month abhi koi order nahi</p></div></td></tr>';
+      }
+    }
+    function renderInventory() {
+      const sold = {};
+      allOrders.forEach(o => {
+        (o.items||[]).forEach(i => {
+          const id = i.id || i.name;
+          sold[id] = (sold[id]||0) + (i.qty||1);
+        });
+      });
+      let totalSold = 0, lowCount = 0;
+      const rows = Object.keys(productNames).map(id => {
+        const s = sold[id] || sold[productNames[id]] || 0;
+        totalSold += s;
+        const rem = Math.max(0, PRODUCT_START_STOCK - s);
+        let status = 'In Stock', cls = 'badge-confirmed';
+        if (rem === 0) { status = 'Out of Stock'; cls = 'badge-pending'; lowCount++; }
+        else if (rem <= 10) { status = 'Low Stock'; cls = 'badge-shipped'; lowCount++; }
+        return { name: productNames[id], sold: s, rem, status, cls };
+      }).sort((a,b) => a.rem - b.rem);
+      document.getElementById('invTotalSold').textContent = totalSold;
+      document.getElementById('invLowStock').textContent = lowCount;
+      const body = document.getElementById('inventoryBody');
+      if (body) body.innerHTML = rows.map(r => `<tr>
+        <td><strong>${r.name}</strong></td>
+        <td>${r.sold}</td>
+        <td><strong>${r.rem}</strong> / ${PRODUCT_START_STOCK}</td>
+        <td><span class="badge ${r.cls}">${r.status}</span></td>
+      </tr>`).join('');
+    }
+    function refreshAll(){renderStats();renderAllOrders();renderConfirmed();renderDaily();renderInventory();}
+
+    function loadOrders(){
+      if(typeof firebase==='undefined'||!firebase.database){allOrders=JSON.parse(localStorage.getItem('fourstyle_orders')||'[]');refreshAll();return;}
+      firebase.database().ref('orders').on('value',snap=>{
+        const data=snap.val();
+        allOrders=data?Object.keys(data).map(k=>({...data[k],id:data[k].id||k})).sort((a,b)=>(b.timestamp||0)-(a.timestamp||0)):[];
+        refreshAll();
+      });
+      firebase.database().ref('stats/visitCount').on('value',s=>{const v=s.val()||0;document.getElementById('statVisits').textContent=v;document.getElementById('statVisits2').textContent=v;document.getElementById('statConversion').textContent=v?Math.round((allOrders.length/v)*100)+'%':'0%';});
+      firebase.database().ref('stats/loginCount').on('value',s=>{const v=s.val()||0;document.getElementById('statLogins').textContent=v;document.getElementById('statLogins2').textContent=v;});
+      firebase.database().ref('stats/registerCount').on('value',s=>{const v=s.val()||0;document.getElementById('statUsers').textContent=v;document.getElementById('statUsers2').textContent=v;});
+    }
+    loadOrders();
+  </script>
+</body>
+</html>

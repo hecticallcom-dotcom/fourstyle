@@ -44,11 +44,11 @@
       <button class="search-btn" id="searchBtn" aria-label="Search" onclick="openSearch()">
         <i class="fas fa-search"></i>
       </button>
-      <a class='logo' href='/'>
+      <a href="index.html" class="logo">
         <img src="images/logo.jpeg" alt="Fourstyle Logo" class="logo-img">
       </a>
       <div class="header-icons">
-        <a class='auth-btn' href='/login' title='Login / Account'>
+        <a href="login.html" class="auth-btn" title="Login / Account">
           <i class="fas fa-user"></i>
         </a>
         <button class="wishlist-btn" aria-label="Wishlist">
@@ -66,7 +66,7 @@
 
     <nav class="main-nav" id="mainNav">
       <ul class="nav-list">
-        <li><a class='active' href='/'>Home</a></li>
+        <li><a href="index.html" class="active">Home</a></li>
         <li><a href="#products">All Products</a></li>
         <li class="dropdown">
           <a href="#categories">Accessories <i class="fas fa-chevron-down"></i></a>
@@ -95,32 +95,39 @@
   <!-- Mobile Nav -->
   <div class="mobile-nav" id="mobileNav">
     <ul>
-      <li><a href='/'>Home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="#products">All Products</a></li>
       <li><a href="#products">Accessories</a></li>
       <li><a href="#products">Brand Watches</a></li>
       <li><a href="#contact">Contact Us</a></li>
-      <li><a href="/login">Login / Account</a></li>
     </ul>
-  </div>
-
-  <!-- Search Overlay -->
-  <div class="search-overlay" id="searchOverlay">
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off">
-      <button onclick="closeSearch()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="search-results" id="searchResults"></div>
   </div>
 
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <p class="hero-subtitle">PREMIUM COLLECTION</p>
-      <h1 class="hero-title">FOURSTYLE</h1>
-      <p class="hero-desc">Fashion Accessories</p>
-      <p class="hero-text">Discover premium watches, caps, sunglasses & more designed for modern lifestyles.</p>
-      <a href="#products" class="btn-primary">Shop Now</a>
+      <div class="hero-badge">PREMIUM COLLECTION</div>
+      <h1>FOURSTYLE</h1>
+      <p class="hero-tagline">Fashion Accessories</p>
+      <p class="hero-desc">Discover premium watches, caps, sunglasses & more designed for modern lifestyles.</p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn btn-primary">Shop Now</a>
+        <a href="#categories" class="btn btn-outline">Explore Collection</a>
+      </div>
+      <div class="hero-features">
+        <div class="hero-feature">
+          <i class="fas fa-star"></i>
+          <span>Premium Quality</span>
+        </div>
+        <div class="hero-feature">
+          <i class="fas fa-shield-alt"></i>
+          <span>Quality to Trust</span>
+        </div>
+        <div class="hero-feature">
+          <i class="fas fa-gift"></i>
+          <span>Style to Express</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -129,32 +136,149 @@
     <div class="container">
       <h2 class="section-title">Shop by Category</h2>
       <div class="category-grid">
-        <div class="category-card" data-category="watches">
-          <div class="category-icon"><i class="fas fa-watch"></i></div>
+        <a href="#products" class="category-card">
+          <div class="category-img">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop" alt="Watches">
+          </div>
           <h3>Watches</h3>
-        </div>
-        <div class="category-card" data-category="caps">
-          <div class="category-icon"><i class="fas fa-hat-cowboy"></i></div>
+          <span>48 Products</span>
+        </a>
+        <a href="#products" class="category-card">
+          <div class="category-img">
+            <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=400&h=400&fit=crop" alt="Automatic Watches">
+          </div>
+          <h3>Automatic Watches</h3>
+          <span>11 Products</span>
+        </a>
+        <a href="#products" class="category-card">
+          <div class="category-img">
+            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=400&fit=crop" alt="Caps">
+          </div>
           <h3>Caps</h3>
-        </div>
-        <div class="category-card" data-category="glasses">
-          <div class="category-icon"><i class="fas fa-glasses"></i></div>
+          <span>5 Products</span>
+        </a>
+        <a href="#products" class="category-card">
+          <div class="category-img">
+            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop" alt="Sunglasses">
+          </div>
           <h3>Sunglasses</h3>
-        </div>
-        <div class="category-card" data-category="wallets">
-          <div class="category-icon"><i class="fas fa-wallet"></i></div>
+          <span>8 Products</span>
+        </a>
+        <a href="#products" class="category-card">
+          <div class="category-img">
+            <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=400&fit=crop" alt="Wallets">
+          </div>
           <h3>Wallets</h3>
+          <span>6 Products</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">All Products</h2>
+        <div class="sort-filter">
+          <select id="sortSelect">
+            <option value="featured">Featured</option>
+            <option value="best">Best selling</option>
+            <option value="price-low">Price, low to high</option>
+            <option value="price-high">Price, high to low</option>
+            <option value="new">Date, new to old</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- Products will be injected by JS -->
+      </div>
+
+      <div class="load-more-wrap">
+        <button class="btn btn-outline" id="loadMoreBtn">Load More</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Premium Banner -->
+  <section class="premium-banner">
+    <div class="container">
+      <div class="premium-content">
+        <span class="premium-label">PREMIUM COLLECTION</span>
+        <h2>Timeless Elegance For Every Moment</h2>
+        <p>Discover premium fashion accessories designed for modern lifestyles. From classic sophistication to contemporary style, every piece is selected to elevate your everyday look.</p>
+        <a href="#products" class="btn btn-primary">Explore Collection</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="container">
+      <h2 class="section-title">Hear From Our Happy Customers</h2>
+      <p class="section-subtitle">Real customers share why Fourstyle has become their favorite brand to shop from.</p>
+      <div class="testimonial-slider">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Amazing quality watches. Packaging was premium and delivery was fast. Highly recommended!"</p>
+          <h4>— Ahmed R.</h4>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Bought two watches and got a free wallet. Great deal and excellent customer service."</p>
+          <h4>— Sara K.</h4>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The sunglasses look exactly like the pictures. Very happy with my purchase from Fourstyle."</p>
+          <h4>— Usman T.</h4>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Products -->
-  <section class="products" id="products">
+  <!-- FAQ -->
+  <section class="faq" id="faq">
     <div class="container">
-      <h2 class="section-title">Our Products</h2>
-      <div class="products-grid" id="productsGrid">
-        <!-- Products will be loaded by JS -->
+      <h2 class="section-title">FAQ's</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question">
+            Are your products premium quality?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, every product at Fourstyle is carefully selected for premium quality, durability, and a stylish look.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How is your packing?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>All orders are shipped in secure, premium packaging so your product reaches you safe and in perfect condition.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How long does delivery take?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Orders are usually delivered within 3–5 business days across Pakistan.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Do you offer Cash on Delivery (COD)?
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, we offer Cash on Delivery (COD) nationwide for your convenience.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -163,18 +287,18 @@
   <section class="why-us">
     <div class="container">
       <h2 class="section-title">Why Choose Fourstyle</h2>
-      <div class="features-grid">
-        <div class="feature">
+      <div class="why-grid">
+        <div class="why-card">
           <i class="fas fa-headset"></i>
           <h3>24/7 Support</h3>
           <p>Our team is always ready to help you with any query.</p>
         </div>
-        <div class="feature">
-          <i class="fas fa-shield-alt"></i>
+        <div class="why-card">
+          <i class="fas fa-lock"></i>
           <h3>100% Safe & Secure Checkout</h3>
           <p>Your payment and data are always protected.</p>
         </div>
-        <div class="feature">
+        <div class="why-card">
           <i class="fas fa-shipping-fast"></i>
           <h3>Fast Shipping</h3>
           <p>Quick delivery across Pakistan within 3-5 days.</p>
@@ -186,40 +310,222 @@
   <!-- Contact / Newsletter -->
   <section class="contact" id="contact">
     <div class="container">
-      <h2 class="section-title">Let’s get in touch</h2>
-      <p>Sign up for our newsletter and receive 10% off your first order.</p>
-      <form class="newsletter-form">
-        <input type="email" placeholder="Enter your email">
-        <button type="submit">Subscribe</button>
-      </form>
-      <p class="whatsapp">WhatsApp: +92 300 1234567</p>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2>Let’s get in touch</h2>
+          <p>Sign up for our newsletter and receive 10% off your first order.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit" class="btn btn-primary">Subscribe</button>
+          </form>
+          <div class="contact-details">
+            <p><i class="fab fa-whatsapp"></i> WhatsApp: +92 300 1234567</p>
+            <p><i class="fas fa-envelope"></i> Email: support@fourstyle.pk</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2025 Fourstyle. All rights reserved.</p>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="images/logo.jpeg" alt="Fourstyle" class="footer-logo">
+          <p>Premium Fashion Accessories for the modern you.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Main Menu</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#products">All Products</a></li>
+            <li><a href="#categories">Accessories</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Return Policy</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Payment Options</h4>
+          <div class="payment-icons">
+            <i class="fas fa-money-bill-wave" title="Cash on Delivery"></i>
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Fourstyle. All rights reserved. | Fashion Accessories</p>
+      </div>
     </div>
   </footer>
 
   <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay"></div>
   <div class="cart-sidebar" id="cartSidebar">
     <div class="cart-header">
-      <h3>Your Cart</h3>
-      <button onclick="closeCart()"><i class="fas fa-times"></i></button>
+      <h3>Shopping Cart</h3>
+      <button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button>
     </div>
-    <div class="cart-items" id="cartItems"></div>
-    <div class="cart-footer">
-      <div class="cart-total">Total: Rs <span id="cartTotal">0</span></div>
-      <button class="btn-primary" onclick="checkout()">Checkout</button>
+    <div class="cart-body" id="cartBody">
+      <p class="empty-cart">Your cart is currently empty.</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <strong id="cartSubtotal">Rs.0.00</strong>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="openCheckout()">Checkout (Login Required)</button>
+      <button class="btn btn-block" style="background:#25D366;color:#fff;margin-top:8px;border:none;padding:12px;border-radius:8px;font-weight:600;cursor:pointer;width:100%;font-family:inherit;" onclick="orderViaWhatsApp()">
+        <i class="fab fa-whatsapp"></i> Order via WhatsApp
+      </button>
+      <a href="#" class="view-cart-link" onclick="closeCartSidebar(); return false;">Continue Shopping</a>
     </div>
   </div>
-  <div class="overlay" id="overlay"></div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+  <!-- Search Modal -->
+  <div class="modal-overlay" id="searchModal">
+    <div class="search-modal">
+      <button class="modal-close" onclick="closeSearch()"><i class="fas fa-times"></i></button>
+      <h2><i class="fas fa-search"></i> Search Products</h2>
+      <input type="text" id="searchInput" placeholder="Search watches, caps, wallets..." autocomplete="off">
+      <div id="searchResults" class="search-results"></div>
+    </div>
+  </div>
+
+  <!-- Product Quick View Modal (4 Images) -->
+  <div class="modal-overlay" id="productModal">
+    <div class="product-modal">
+      <button class="modal-close" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
+      <div class="modal-gallery">
+        <div class="modal-main-img">
+          <img id="modalMainImg" src="" alt="Product">
+        </div>
+        <div class="modal-thumbs" id="modalThumbs"></div>
+      </div>
+      <div class="modal-details">
+        <span class="product-badge" id="modalBadge"></span>
+        <h2 id="modalName"></h2>
+        <div class="product-price">
+          <span class="sale" id="modalPrice"></span>
+          <span class="regular" id="modalOriginal"></span>
+        </div>
+        <p class="modal-desc">Premium quality fashion accessory. Free gift on buy 2 items. Cash on Delivery available nationwide.</p>
+        <button class="btn btn-primary btn-block" id="modalAddToCart">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="checkout-modal">
+      <button class="modal-close" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+      <h2><i class="fas fa-shopping-bag"></i> Checkout</h2>
+      
+      <div class="checkout-items" id="checkoutItems"></div>
+      <div class="checkout-totals" id="checkoutTotal"></div>
+
+      <form id="checkoutForm" onsubmit="placeOrder(event)">
+        <h3>Delivery Details</h3>
+        <div class="form-group">
+          <input type="text" name="name" placeholder="Full Name *" required>
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email Address *" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" name="phone" placeholder="WhatsApp / Phone *" required>
+        </div>
+        <div class="form-group">
+          <textarea name="address" placeholder="Complete Delivery Address *" rows="3" required></textarea>
+        </div>
+
+        <h3>Payment Method</h3>
+        <div class="payment-methods">
+          <label class="payment-option">
+            <input type="radio" name="payment" value="Cash on Delivery" checked onchange="togglePaymentFields()">
+            <div class="payment-card">
+              <i class="fas fa-money-bill-wave"></i>
+              <span>Cash on Delivery</span>
+              <small>Pay when you receive</small>
+            </div>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="JazzCash" onchange="togglePaymentFields()">
+            <div class="payment-card">
+              <i class="fas fa-mobile-alt"></i>
+              <span>JazzCash</span>
+              <small>Mobile wallet</small>
+            </div>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="EasyPaisa" onchange="togglePaymentFields()">
+            <div class="payment-card">
+              <i class="fas fa-wallet"></i>
+              <span>EasyPaisa</span>
+              <small>Mobile wallet</small>
+            </div>
+          </label>
+          <label class="payment-option">
+            <input type="radio" name="payment" value="Bank Transfer" onchange="togglePaymentFields()">
+            <div class="payment-card">
+              <i class="fas fa-university"></i>
+              <span>Bank Transfer</span>
+              <small>Advance payment</small>
+            </div>
+          </label>
+        </div>
+
+        <!-- Dynamic payment account fields -->
+        <div id="paymentAccountFields" style="display:none; margin-top:15px;">
+          <h3 id="paymentFieldsTitle">Payment Account Details</h3>
+          <div id="walletFields" style="display:none;">
+            <div class="form-group">
+              <input type="tel" name="accountNumber" id="accountNumber" placeholder="JazzCash / EasyPaisa Account Number *">
+            </div>
+            <div class="form-group">
+              <input type="text" name="accountName" id="accountName" placeholder="Account Holder Name *">
+            </div>
+            <p class="payment-note" id="walletNote" style="font-size:12px;color:#666;margin-bottom:12px;"></p>
+          </div>
+          <div id="bankFields" style="display:none;">
+            <div class="form-group">
+              <input type="text" name="bankName" id="bankName" placeholder="Bank Name (e.g. HBL, Meezan) *">
+            </div>
+            <div class="form-group">
+              <input type="text" name="bankAccountTitle" id="bankAccountTitle" placeholder="Account Title *">
+            </div>
+            <div class="form-group">
+              <input type="text" name="bankAccountNumber" id="bankAccountNumber" placeholder="Account Number / IBAN *">
+            </div>
+            <p class="payment-note" style="font-size:12px;color:#666;margin-bottom:12px;">Transfer amount to our account. We will verify and confirm your order.</p>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block place-order-btn">
+          <i class="fas fa-check"></i> Place Order
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/923001234567" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
   <script src="js/firebase-config.js"></script>
   <script src="js/script.js"></script>
 </body>
