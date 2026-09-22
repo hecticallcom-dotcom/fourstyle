@@ -4,8 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fourstyle | Premium Fashion Accessories Pakistan</title>
-  <meta name="description" content="Fourstyle - Premium Watches, Caps, Sunglasses & Fashion Accessories Online in Pakistan. Cash on Delivery available.">
+  <meta name="description" content="Shop premium watches, caps, sunglasses & wallets at Fourstyle (Four Style). Quality fashion accessories online in Pakistan. Cash on Delivery available.">
+  <link rel="canonical" href="https://fourstyle.pk/">
+  <meta property="og:title" content="Fourstyle | Premium Fashion Accessories Pakistan">
+  <meta property="og:description" content="Shop premium watches, caps, sunglasses & wallets at Fourstyle (Four Style). Quality fashion accessories online in Pakistan. Cash on Delivery available.">
+  <meta property="og:url" content="https://fourstyle.pk/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://fourstyle.pk/images/logo.jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Fourstyle | Premium Fashion Accessories Pakistan">
+  <meta name="twitter:description" content="Shop premium watches, caps, sunglasses & wallets at Fourstyle. Cash on Delivery available.">
+  <meta name="twitter:image" content="https://fourstyle.pk/images/logo.jpeg">
+  <link rel="icon" href="images/logo.jpeg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Fourstyle",
+    "alternateName": "Four Style",
+    "url": "https://fourstyle.pk/",
+    "logo": "https://fourstyle.pk/images/logo.jpeg"
+  }
+  </script>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/fourstyle-v2.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -16,24 +38,15 @@
   <!-- Top Announcement Bar -->
   <div class="announcement-bar">
     <div class="announcement-track">
-      <span>Rs 250 delivery charges advance payment required</span>
-      <span>•</span>
-      <span>Buy any 2 Items & Get Free Gift</span>
-      <span>•</span>
-      <span>OUTLET COMING SOON</span>
-      <span>•</span>
-      <span>Cash on Delivery Available Nationwide</span>
-      <span>•</span>
-      <span>Up to 30% OFF on Selected Items</span>
-      <span>•</span>
-      <span>Rs 250 delivery charges advance payment required</span>
-      <span>•</span>
-      <span>Buy any 2 Items & Get Free Gift</span>
-      <span>•</span>
-      <span>OUTLET COMING SOON</span>
-      <span>•</span>
-      <span>Cash on Delivery Available Nationwide</span>
-      <span>•</span>
+      <span>Rs 250 delivery charges advance payment required</span><span>•</span>
+      <span>Buy any 2 Items &amp; Get Free Gift</span><span>•</span>
+      <span>OUTLET COMING SOON</span><span>•</span>
+      <span>Cash on Delivery Available Nationwide</span><span>•</span>
+      <span>Up to 30% OFF on Selected Items</span><span>•</span>
+      <span>Rs 250 delivery charges advance payment required</span><span>•</span>
+      <span>Buy any 2 Items &amp; Get Free Gift</span><span>•</span>
+      <span>OUTLET COMING SOON</span><span>•</span>
+      <span>Cash on Delivery Available Nationwide</span><span>•</span>
       <span>Up to 30% OFF on Selected Items</span>
     </div>
   </div>
@@ -44,16 +57,13 @@
       <button class="search-btn" id="searchBtn" aria-label="Search" onclick="openSearch()">
         <i class="fas fa-search"></i>
       </button>
-      <a href="index.html" class="logo">
+      <a class="logo" href="index.html" aria-label="Fourstyle home">
         <img src="images/logo.jpeg" alt="Fourstyle Logo" class="logo-img">
       </a>
       <div class="header-icons">
-        <a href="login.html" class="auth-btn" title="Login / Account">
+        <a class="auth-btn" id="authBtn" href="login.html" title="Login / Account" aria-label="Login or account">
           <i class="fas fa-user"></i>
         </a>
-        <button class="wishlist-btn" aria-label="Wishlist">
-          <i class="far fa-heart"></i>
-        </button>
         <button class="cart-btn" id="cartBtn" aria-label="Cart">
           <i class="fas fa-shopping-bag"></i>
           <span class="cart-count" id="cartCount">0</span>
@@ -66,28 +76,17 @@
 
     <nav class="main-nav" id="mainNav">
       <ul class="nav-list">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="#products">All Products</a></li>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="#products" onclick="clearFilter(); return false;">All Products</a></li>
         <li class="dropdown">
           <a href="#categories">Accessories <i class="fas fa-chevron-down"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="#products" data-category="caps">Caps</a></li>
-            <li><a href="#products" data-category="glasses">Sunglasses</a></li>
-            <li><a href="#products" data-category="wallets">Wallets</a></li>
-            <li><a href="#products" data-category="watches">Watches</a></li>
-          </ul>
+          <ul class="dropdown-menu" id="categoryMenu"></ul>
         </li>
         <li class="dropdown">
           <a href="#products">Brand Watches <i class="fas fa-chevron-down"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="#products">Rolex Style</a></li>
-            <li><a href="#products">Hublot Style</a></li>
-            <li><a href="#products">Tissot Style</a></li>
-            <li><a href="#products">Cartier Style</a></li>
-            <li><a href="#products">Patek Style</a></li>
-          </ul>
+          <ul class="dropdown-menu" id="brandMenu"></ul>
         </li>
-        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </nav>
   </header>
@@ -96,37 +95,33 @@
   <div class="mobile-nav" id="mobileNav">
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="#products">All Products</a></li>
-      <li><a href="#products">Accessories</a></li>
-      <li><a href="#products">Brand Watches</a></li>
-      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="#products" onclick="clearFilter(); closeMobileNav(); return false;">All Products</a></li>
+    </ul>
+    <p class="mobile-nav-label">Categories</p>
+    <ul id="mobileCategories"></ul>
+    <p class="mobile-nav-label">Brands</p>
+    <ul id="mobileBrands"></ul>
+    <ul>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="login.html">Login / Sign Up</a></li>
     </ul>
   </div>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
       <div class="hero-badge">PREMIUM COLLECTION</div>
       <h1>FOURSTYLE</h1>
       <p class="hero-tagline">Fashion Accessories</p>
-      <p class="hero-desc">Discover premium watches, caps, sunglasses & more designed for modern lifestyles.</p>
+      <p class="hero-desc">Discover premium watches, caps, sunglasses &amp; more designed for modern lifestyles.</p>
       <div class="hero-buttons">
         <a href="#products" class="btn btn-primary">Shop Now</a>
         <a href="#categories" class="btn btn-outline">Explore Collection</a>
       </div>
       <div class="hero-features">
-        <div class="hero-feature">
-          <i class="fas fa-star"></i>
-          <span>Premium Quality</span>
-        </div>
-        <div class="hero-feature">
-          <i class="fas fa-shield-alt"></i>
-          <span>Quality to Trust</span>
-        </div>
-        <div class="hero-feature">
-          <i class="fas fa-gift"></i>
-          <span>Style to Express</span>
-        </div>
+        <div class="hero-feature"><i class="fas fa-star"></i><span>Premium Quality</span></div>
+        <div class="hero-feature"><i class="fas fa-shield-alt"></i><span>Quality to Trust</span></div>
+        <div class="hero-feature"><i class="fas fa-gift"></i><span>Style to Express</span></div>
       </div>
     </div>
   </section>
@@ -135,55 +130,22 @@
   <section class="categories" id="categories">
     <div class="container">
       <h2 class="section-title">Shop by Category</h2>
-      <div class="category-grid">
-        <a href="#products" class="category-card">
-          <div class="category-img">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop" alt="Watches">
-          </div>
-          <h3>Watches</h3>
-          <span>48 Products</span>
-        </a>
-        <a href="#products" class="category-card">
-          <div class="category-img">
-            <img src="https://images.unsplash.com/photo-1614164185128-e4ec99c436d7?w=400&h=400&fit=crop" alt="Automatic Watches">
-          </div>
-          <h3>Automatic Watches</h3>
-          <span>11 Products</span>
-        </a>
-        <a href="#products" class="category-card">
-          <div class="category-img">
-            <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&h=400&fit=crop" alt="Caps">
-          </div>
-          <h3>Caps</h3>
-          <span>5 Products</span>
-        </a>
-        <a href="#products" class="category-card">
-          <div class="category-img">
-            <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop" alt="Sunglasses">
-          </div>
-          <h3>Sunglasses</h3>
-          <span>8 Products</span>
-        </a>
-        <a href="#products" class="category-card">
-          <div class="category-img">
-            <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=400&fit=crop" alt="Wallets">
-          </div>
-          <h3>Wallets</h3>
-          <span>6 Products</span>
-        </a>
-      </div>
+      <div class="category-grid" id="categoryGrid"></div>
     </div>
   </section>
 
-  <!-- Products Section -->
+  <!-- Products -->
   <section class="products" id="products">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">All Products</h2>
+        <div class="section-head-left">
+          <h2 class="section-title" id="productsTitle">All Products</h2>
+          <span id="resultCount"></span>
+        </div>
         <div class="sort-filter">
-          <select id="sortSelect">
+          <select id="sortSelect" aria-label="Sort products">
             <option value="featured">Featured</option>
-            <option value="best">Best selling</option>
+            <option value="best">Best discount</option>
             <option value="price-low">Price, low to high</option>
             <option value="price-high">Price, high to low</option>
             <option value="new">Date, new to old</option>
@@ -191,9 +153,9 @@
         </div>
       </div>
 
-      <div class="product-grid" id="productGrid">
-        <!-- Products will be injected by JS -->
-      </div>
+      <div class="filter-notice" id="filterNotice"></div>
+
+      <div class="product-grid" id="productGrid"></div>
 
       <div class="load-more-wrap">
         <button class="btn btn-outline" id="loadMoreBtn">Load More</button>
@@ -217,7 +179,7 @@
   <section class="testimonials">
     <div class="container">
       <h2 class="section-title">Hear From Our Happy Customers</h2>
-      <p class="section-subtitle">Real customers share why Fourstyle has become their favorite brand to shop from.</p>
+      <p class="section-subtitle">Real customers share why Fourstyle has become their favourite brand to shop from.</p>
       <div class="testimonial-slider">
         <div class="testimonial-card">
           <div class="stars">★★★★★</div>
@@ -244,40 +206,24 @@
       <h2 class="section-title">FAQ's</h2>
       <div class="faq-list">
         <div class="faq-item">
-          <button class="faq-question">
-            Are your products premium quality?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Yes, every product at Fourstyle is carefully selected for premium quality, durability, and a stylish look.</p>
-          </div>
+          <button class="faq-question">Are your products premium quality? <i class="fas fa-chevron-down"></i></button>
+          <div class="faq-answer"><p>Yes, every product at Fourstyle is carefully selected for premium quality, durability, and a stylish look.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-question">
-            How is your packing?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>All orders are shipped in secure, premium packaging so your product reaches you safe and in perfect condition.</p>
-          </div>
+          <button class="faq-question">How is your packing? <i class="fas fa-chevron-down"></i></button>
+          <div class="faq-answer"><p>All orders are shipped in secure, premium packaging so your product reaches you safe and in perfect condition.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-question">
-            How long does delivery take?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Orders are usually delivered within 3–5 business days across Pakistan.</p>
-          </div>
+          <button class="faq-question">How long does delivery take? <i class="fas fa-chevron-down"></i></button>
+          <div class="faq-answer"><p>Orders are usually delivered within 3–5 business days across Pakistan.</p></div>
         </div>
         <div class="faq-item">
-          <button class="faq-question">
-            Do you offer Cash on Delivery (COD)?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Yes, we offer Cash on Delivery (COD) nationwide for your convenience.</p>
-          </div>
+          <button class="faq-question">Do you offer Cash on Delivery (COD)? <i class="fas fa-chevron-down"></i></button>
+          <div class="faq-answer"><p>Yes, we offer Cash on Delivery nationwide. Rs 250 delivery charges are paid in advance.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">Which payment methods do you accept? <i class="fas fa-chevron-down"></i></button>
+          <div class="faq-answer"><p>JazzCash, EasyPaisa, bank transfer and Cash on Delivery. After paying online you can upload your payment slip directly on the checkout screen.</p></div>
         </div>
       </div>
     </div>
@@ -288,39 +234,28 @@
     <div class="container">
       <h2 class="section-title">Why Choose Fourstyle</h2>
       <div class="why-grid">
-        <div class="why-card">
-          <i class="fas fa-headset"></i>
-          <h3>24/7 Support</h3>
-          <p>Our team is always ready to help you with any query.</p>
-        </div>
-        <div class="why-card">
-          <i class="fas fa-lock"></i>
-          <h3>100% Safe & Secure Checkout</h3>
-          <p>Your payment and data are always protected.</p>
-        </div>
-        <div class="why-card">
-          <i class="fas fa-shipping-fast"></i>
-          <h3>Fast Shipping</h3>
-          <p>Quick delivery across Pakistan within 3-5 days.</p>
-        </div>
+        <div class="why-card"><i class="fas fa-headset"></i><h3>24/7 Support</h3><p>Our team is always ready to help you with any query.</p></div>
+        <div class="why-card"><i class="fas fa-lock"></i><h3>100% Safe &amp; Secure Checkout</h3><p>Your payment and data are always protected.</p></div>
+        <div class="why-card"><i class="fas fa-shipping-fast"></i><h3>Fast Shipping</h3><p>Quick delivery across Pakistan within 3–5 days.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Contact / Newsletter -->
+  <!-- Newsletter / Contact strip -->
   <section class="contact" id="contact">
     <div class="container">
       <div class="contact-grid">
         <div class="contact-info">
-          <h2>Let’s get in touch</h2>
+          <h2>Let's get in touch</h2>
           <p>Sign up for our newsletter and receive 10% off your first order.</p>
           <form class="newsletter-form" id="newsletterForm">
             <input type="email" placeholder="Enter your email" required>
             <button type="submit" class="btn btn-primary">Subscribe</button>
           </form>
           <div class="contact-details">
-            <p><i class="fab fa-whatsapp"></i> WhatsApp: +92 300 1234567</p>
+            <p><i class="fab fa-whatsapp"></i> WhatsApp: +92 311 0199257</p>
             <p><i class="fas fa-envelope"></i> Email: support@fourstyle.pk</p>
+            <p><i class="fas fa-comments"></i> <a href="contact.html" style="color:var(--gold);font-weight:600;">Have a question? Use our Contact Us form →</a></p>
           </div>
         </div>
       </div>
@@ -339,27 +274,28 @@
           <h4>Main Menu</h4>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="#products">All Products</a></li>
+            <li><a href="#products" onclick="clearFilter(); return false;">All Products</a></li>
             <li><a href="#categories">Accessories</a></li>
-            <li><a href="#contact">Contact Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Useful Links</h4>
           <ul>
             <li><a href="#faq">FAQs</a></li>
-            <li><a href="#">Shipping Policy</a></li>
-            <li><a href="#">Return Policy</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Create Account</a></li>
+            <li><a href="contact.html">Support</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Payment Options</h4>
           <div class="payment-icons">
             <i class="fas fa-money-bill-wave" title="Cash on Delivery"></i>
-            <i class="fab fa-cc-visa"></i>
-            <i class="fab fa-cc-mastercard"></i>
+            <i class="fas fa-mobile-alt" title="JazzCash / EasyPaisa"></i>
+            <i class="fas fa-university" title="Bank Transfer"></i>
           </div>
+          <p style="font-size:12px;color:#999;margin-top:10px;">JazzCash / EasyPaisa, Bank Transfer &amp; Cash on Delivery</p>
         </div>
       </div>
       <div class="footer-bottom">
@@ -370,56 +306,43 @@
 
   <!-- Cart Sidebar -->
   <div class="cart-overlay" id="cartOverlay"></div>
-  <div class="cart-sidebar" id="cartSidebar">
+  <aside class="cart-sidebar" id="cartSidebar" aria-label="Shopping cart">
     <div class="cart-header">
       <h3>Shopping Cart</h3>
-      <button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button>
+      <button class="close-cart" id="closeCart" aria-label="Close cart"><i class="fas fa-times"></i></button>
     </div>
-    <div class="cart-body" id="cartBody">
-      <p class="empty-cart">Your cart is currently empty.</p>
-    </div>
-    <div class="cart-footer" id="cartFooter" style="display:none;">
-      <div class="cart-subtotal">
-        <span>Subtotal</span>
-        <strong id="cartSubtotal">Rs.0.00</strong>
-      </div>
-      <button class="btn btn-primary btn-block" onclick="openCheckout()">Checkout (Login Required)</button>
-      <button class="btn btn-block" style="background:#25D366;color:#fff;margin-top:8px;border:none;padding:12px;border-radius:8px;font-weight:600;cursor:pointer;width:100%;font-family:inherit;" onclick="orderViaWhatsApp()">
-        <i class="fab fa-whatsapp"></i> Order via WhatsApp
-      </button>
-      <a href="#" class="view-cart-link" onclick="closeCartSidebar(); return false;">Continue Shopping</a>
-    </div>
-  </div>
-
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none;"></div>
+  </aside>
 
   <!-- Search Modal -->
   <div class="modal-overlay" id="searchModal">
     <div class="search-modal">
-      <button class="modal-close" onclick="closeSearch()"><i class="fas fa-times"></i></button>
+      <button class="modal-close" onclick="closeSearch()" aria-label="Close"><i class="fas fa-times"></i></button>
       <h2><i class="fas fa-search"></i> Search Products</h2>
-      <input type="text" id="searchInput" placeholder="Search watches, caps, wallets..." autocomplete="off">
+      <input type="text" id="searchInput" placeholder="Search watches, caps, wallets…" autocomplete="off">
       <div id="searchResults" class="search-results"></div>
     </div>
   </div>
 
-  <!-- Product Quick View Modal (4 Images) -->
+  <!-- Product Quick View -->
   <div class="modal-overlay" id="productModal">
     <div class="product-modal">
-      <button class="modal-close" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
+      <button class="modal-close" onclick="closeProductModal()" aria-label="Close"><i class="fas fa-times"></i></button>
       <div class="modal-gallery">
-        <div class="modal-main-img">
-          <img id="modalMainImg" src="" alt="Product">
-        </div>
+        <div class="modal-main-img"><img id="modalMainImg" src="" alt="Product"></div>
         <div class="modal-thumbs" id="modalThumbs"></div>
       </div>
       <div class="modal-details">
         <span class="product-badge" id="modalBadge"></span>
+        <span class="modal-brand" id="modalBrand"></span>
         <h2 id="modalName"></h2>
         <div class="product-price">
           <span class="sale" id="modalPrice"></span>
           <span class="regular" id="modalOriginal"></span>
         </div>
-        <p class="modal-desc">Premium quality fashion accessory. Free gift on buy 2 items. Cash on Delivery available nationwide.</p>
+        <div id="modalStock" style="margin-bottom:10px;"></div>
+        <p class="modal-desc" id="modalDesc"></p>
         <button class="btn btn-primary btn-block" id="modalAddToCart">Add to Cart</button>
       </div>
     </div>
@@ -428,30 +351,38 @@
   <!-- Checkout Modal -->
   <div class="modal-overlay" id="checkoutModal">
     <div class="checkout-modal">
-      <button class="modal-close" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+      <button class="modal-close" onclick="closeCheckout()" aria-label="Close"><i class="fas fa-times"></i></button>
       <h2><i class="fas fa-shopping-bag"></i> Checkout</h2>
-      
+
       <div class="checkout-items" id="checkoutItems"></div>
       <div class="checkout-totals" id="checkoutTotal"></div>
 
       <form id="checkoutForm" onsubmit="placeOrder(event)">
-        <h3>Delivery Details</h3>
-        <div class="form-group">
-          <input type="text" name="name" placeholder="Full Name *" required>
+        <h3>Delivery details</h3>
+        <div class="field">
+          <label>Full name <span>*</span></label>
+          <input type="text" name="name" placeholder="Your full name" required>
         </div>
-        <div class="form-group">
-          <input type="email" name="email" placeholder="Email Address *" required>
+        <div class="field">
+          <label>Email address <span>*</span></label>
+          <input type="email" name="email" placeholder="you@example.com" required>
         </div>
-        <div class="form-group">
-          <input type="tel" name="phone" placeholder="WhatsApp / Phone *" required>
+        <div class="field">
+          <label>WhatsApp / phone number <span>*</span></label>
+          <input type="tel" name="phone" placeholder="03XX XXXXXXX" required>
         </div>
-        <div class="form-group">
-          <textarea name="address" placeholder="Complete Delivery Address *" rows="3" required></textarea>
+        <div class="field">
+          <label>Complete delivery address <span>*</span></label>
+          <textarea name="address" rows="3" placeholder="House / street, area, city" required></textarea>
+        </div>
+        <div class="field">
+          <label>Order notes (optional)</label>
+          <textarea name="notes" rows="2" placeholder="Anything we should know about your order"></textarea>
         </div>
 
-        <h3>Payment Method</h3>
+        <h3>Payment method</h3>
         <div class="payment-methods">
-          <label class="payment-option">
+          <label class="payment-option selected">
             <input type="radio" name="payment" value="Cash on Delivery" checked onchange="togglePaymentFields()">
             <div class="payment-card">
               <i class="fas fa-money-bill-wave"></i>
@@ -460,19 +391,11 @@
             </div>
           </label>
           <label class="payment-option">
-            <input type="radio" name="payment" value="JazzCash" onchange="togglePaymentFields()">
+            <input type="radio" name="payment" value="JazzCash / EasyPaisa" onchange="togglePaymentFields()">
             <div class="payment-card">
               <i class="fas fa-mobile-alt"></i>
-              <span>JazzCash</span>
-              <small>Mobile wallet</small>
-            </div>
-          </label>
-          <label class="payment-option">
-            <input type="radio" name="payment" value="EasyPaisa" onchange="togglePaymentFields()">
-            <div class="payment-card">
-              <i class="fas fa-wallet"></i>
-              <span>EasyPaisa</span>
-              <small>Mobile wallet</small>
+              <span>JazzCash / EasyPaisa</span>
+              <small>Mobile wallet transfer</small>
             </div>
           </label>
           <label class="payment-option">
@@ -480,53 +403,105 @@
             <div class="payment-card">
               <i class="fas fa-university"></i>
               <span>Bank Transfer</span>
-              <small>Advance payment</small>
+              <small>Direct bank payment</small>
             </div>
           </label>
         </div>
 
-        <!-- Dynamic payment account fields -->
-        <div id="paymentAccountFields" style="display:none; margin-top:15px;">
-          <h3 id="paymentFieldsTitle">Payment Account Details</h3>
-          <div id="walletFields" style="display:none;">
-            <div class="form-group">
-              <input type="tel" name="accountNumber" id="accountNumber" placeholder="JazzCash / EasyPaisa Account Number *">
-            </div>
-            <div class="form-group">
-              <input type="text" name="accountName" id="accountName" placeholder="Account Holder Name *">
-            </div>
-            <p class="payment-note" id="walletNote" style="font-size:12px;color:#666;margin-bottom:12px;"></p>
+        <!-- JazzCash / EasyPaisa account -->
+        <div class="account-box" id="walletDetails" style="display:none;">
+          <h4><i class="fas fa-mobile-alt"></i> Pay to our JazzCash / EasyPaisa</h4>
+          <div class="account-row">
+            <span class="label">Account number</span>
+            <span class="value">0344 1514744</span>
+            <button type="button" class="copy-btn" onclick="copyText('03441514744', this)"><i class="far fa-copy"></i> Copy</button>
           </div>
-          <div id="bankFields" style="display:none;">
-            <div class="form-group">
-              <input type="text" name="bankName" id="bankName" placeholder="Bank Name (e.g. HBL, Meezan) *">
-            </div>
-            <div class="form-group">
-              <input type="text" name="bankAccountTitle" id="bankAccountTitle" placeholder="Account Title *">
-            </div>
-            <div class="form-group">
-              <input type="text" name="bankAccountNumber" id="bankAccountNumber" placeholder="Account Number / IBAN *">
-            </div>
-            <p class="payment-note" style="font-size:12px;color:#666;margin-bottom:12px;">Transfer amount to our account. We will verify and confirm your order.</p>
+          <div class="account-row">
+            <span class="label">Account name</span>
+            <span class="value">Muhammad Ramzan</span>
+            <button type="button" class="copy-btn" onclick="copyText('Muhammad Ramzan', this)"><i class="far fa-copy"></i> Copy</button>
           </div>
+          <p class="account-note">Send the total amount to the number above using JazzCash or EasyPaisa. After placing the order you will be asked to upload your payment slip on the next step.</p>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block place-order-btn">
+        <!-- Bank transfer account -->
+        <div class="account-box" id="bankDetails" style="display:none;">
+          <h4><i class="fas fa-university"></i> Bank transfer details</h4>
+          <div class="account-row">
+            <span class="label">Account name</span>
+            <span class="value">Muhammad Ramzan</span>
+            <button type="button" class="copy-btn" onclick="copyText('Muhammad Ramzan', this)"><i class="far fa-copy"></i> Copy</button>
+          </div>
+          <div class="account-row">
+            <span class="label">Account number</span>
+            <span class="value">1611534361014057</span>
+            <button type="button" class="copy-btn" onclick="copyText('1611534361014057', this)"><i class="far fa-copy"></i> Copy</button>
+          </div>
+          <p class="account-note">Transfer the total amount to the account above. After placing the order you will be asked to upload your payment slip on the next step.</p>
+        </div>
+
+        <div class="account-box" id="advanceNote">
+          <h4><i class="fas fa-truck"></i> Cash on Delivery</h4>
+          <p class="account-note" style="margin-top:0;">Rs 250 delivery charges are paid in advance via JazzCash / EasyPaisa or bank transfer; the remaining amount is paid to the courier at your doorstep. You can upload the advance payment slip on the next step.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block place-order-btn" style="margin-top:20px;">
           <i class="fas fa-check"></i> Place Order
         </button>
       </form>
+
+      <!-- Step 2: payment slip -->
+      <div class="slip-step" id="slipStep" style="display:none;">
+        <div class="order-confirmed">
+          <i class="fas fa-check-circle"></i>
+          <div>
+            <strong>Order placed successfully</strong>
+            <p>Order ID <b id="slipOrderId"></b> · Total <b id="slipOrderTotal"></b>. Our team will contact you on WhatsApp to confirm.</p>
+          </div>
+        </div>
+
+        <div id="slipUploadBlock">
+          <h3>Upload your payment slip</h3>
+          <p style="font-size:13px;color:var(--text-light);margin-bottom:6px;">
+            Completed the payment? Upload the screenshot or receipt here and our team will verify it in the admin panel.
+          </p>
+          <div class="slip-drop">
+            <i class="fas fa-file-upload"></i>
+            <p>JPG or PNG screenshot of your JazzCash / EasyPaisa or bank transfer receipt</p>
+            <input type="file" id="slipFile" accept="image/*,application/pdf" onchange="previewSlip(this)">
+            <div id="slipPreview"></div>
+          </div>
+          <button type="button" class="btn btn-primary btn-block" id="slipUploadBtn" style="margin-top:14px;" onclick="uploadSlip()">
+            <i class="fas fa-upload"></i> Upload payment slip
+          </button>
+          <div id="slipResult"></div>
+        </div>
+
+        <div id="slipCodNote" style="display:none;">
+          <p style="font-size:13.5px;color:var(--text-light);margin-top:16px;">
+            You chose Cash on Delivery. Please pay the Rs 250 advance delivery charges on WhatsApp and share the slip with us.
+          </p>
+        </div>
+
+        <button type="button" class="btn btn-whatsapp btn-block" style="margin-top:12px;" onclick="orderViaWhatsApp()">
+          <i class="fab fa-whatsapp"></i> Message us on WhatsApp
+        </button>
+        <button type="button" class="view-cart-link" onclick="finishCheckout()">Continue shopping</button>
+      </div>
     </div>
   </div>
 
   <!-- Floating WhatsApp -->
-  <a href="https://wa.me/923001234567" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <a href="https://wa.me/923110199257" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
   <script src="js/firebase-config.js"></script>
+  <script src="js/products-seed.js"></script>
+  <script src="js/safe-storage.js"></script>
+  <script src="js/store.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

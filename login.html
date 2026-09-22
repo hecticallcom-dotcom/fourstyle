@@ -4,238 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Fourstyle</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="images/logo.jpeg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
-      overflow-x: hidden; overflow-y: auto;
-      position: relative;
-    }
-    body::before {
-      content: '';
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(201,162,39,0.15) 0%, transparent 70%);
-      top: -200px;
-      right: -200px;
-      animation: float 8s ease-in-out infinite;
-    }
-    body::after {
-      content: '';
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(201,162,39,0.1) 0%, transparent 70%);
-      bottom: -100px;
-      left: -100px;
-      animation: float 10s ease-in-out infinite reverse;
-    }
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(30px, 20px); }
-    }
-    .auth-container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 420px;
-      padding: 20px;
-    }
-    .auth-card {
-      background: rgba(255,255,255,0.97);
-      border-radius: 20px;
-      padding: 40px 35px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-      animation: slideUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(40px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .auth-logo {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-    .auth-logo img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid #c9a227;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(201,162,39,0.4); }
-      50% { box-shadow: 0 0 0 12px rgba(201,162,39,0); }
-    }
-    .auth-logo h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      color: #1a1a1a;
-      margin-top: 12px;
-    }
-    .auth-logo p {
-      color: #888;
-      font-size: 13px;
-      margin-top: 4px;
-    }
-    .form-group {
-      margin-bottom: 18px;
-      position: relative;
-    }
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 500;
-      color: #555;
-      margin-bottom: 6px;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 13px 16px 13px 42px;
-      border: 2px solid #eee;
-      border-radius: 10px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      transition: all 0.3s;
-      outline: none;
-      background: #fafafa;
-    }
-    .form-group input:focus {
-      border-color: #c9a227;
-      background: #fff;
-      box-shadow: 0 0 0 4px rgba(201,162,39,0.12);
-    }
-    .form-group i {
-      position: absolute;
-      left: 14px;
-      top: 38px;
-      color: #aaa;
-      font-size: 15px;
-      transition: color 0.3s;
-    }
-    .form-group input:focus ~ i,
-    .form-group:focus-within i { color: #c9a227; }
-    .auth-btn-submit {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(135deg, #1a1a1a, #333);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 8px;
-      position: relative;
-      overflow-x: hidden; overflow-y: auto;
-    }
-    .auth-btn-submit:hover {
-      background: linear-gradient(135deg, #c9a227, #e0b83a);
-      color: #1a1a1a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(201,162,39,0.35);
-    }
-    .auth-links {
-      text-align: center;
-      margin-top: 22px;
-      font-size: 13px;
-      color: #666;
-    }
-    .auth-links a {
-      color: #c9a227;
-      font-weight: 600;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .auth-links a:hover { color: #1a1a1a; }
-    .back-home {
-      display: block;
-      text-align: center;
-      margin-top: 18px;
-      color: #999;
-      font-size: 13px;
-      text-decoration: none;
-    }
-    .back-home:hover { color: #c9a227; }
-    .demo-creds {
-      background: #fffdf5;
-      border: 1px dashed #c9a227;
-      border-radius: 10px;
-      padding: 12px;
-      margin-top: 20px;
-      font-size: 12px;
-      color: #666;
-      line-height: 1.7;
-    }
-    .demo-creds strong { color: #1a1a1a; }
-    .error-msg {
-      background: #fee;
-      color: #c00;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 13px;
-      margin-bottom: 15px;
-      display: none;
-      animation: shake 0.4s;
-    }
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      75% { transform: translateX(6px); }
-    }
-
-    @media (max-width: 900px) {
-      body { overflow-x: hidden; overflow-y: auto !important; }
-      body::before, body::after { display: none; }
-      .auth-container { padding: 16px; max-width: 100%; }
-      .auth-card { padding: 28px 22px; border-radius: 16px; max-width: 100%; }
-      .auth-logo h1 { font-size: 22px; }
-      .auth-logo img { width: 60px; height: 60px; }
-      .form-group input { font-size: 16px; /* prevent iOS zoom */ }
-    }
-    @media (max-width: 480px) {
-      .auth-card { padding: 22px 16px; }
-      .auth-logo h1 { font-size: 20px; }
-      .auth-btn-submit { padding: 12px; font-size: 14px; }
-    }
-    @media (min-width: 901px) {
-      .auth-container { max-width: 440px; }
-      .auth-card { padding: 40px 36px; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/auth.css">
 </head>
-<body>
+<body class="auth-page">
+  <div class="auth-bg" aria-hidden="true"><span></span><span></span></div>
+
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-logo">
         <img src="images/logo.jpeg" alt="Fourstyle">
-        <h1>Welcome Back</h1>
-        <p>Login to your Fourstyle account</p>
+        <h1 class="auth-welcome">Welcome <em>4Style</em></h1>
+        <p class="auth-subtitle">Login to your account</p>
+        <p class="auth-tagline">Premium Fashion Accessories</p>
       </div>
 
       <div class="error-msg" id="errorMsg"></div>
 
       <form id="loginForm">
         <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="email" placeholder="you@example.com" required>
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
           <i class="fas fa-envelope"></i>
         </div>
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="password" placeholder="••••••••" required>
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
           <i class="fas fa-lock"></i>
         </div>
         <button type="submit" class="auth-btn-submit">
@@ -246,80 +45,61 @@
       <div class="auth-links">
         Don't have an account? <a href="signup.html">Sign Up</a>
       </div>
-      <a href="index.html" class="back-home"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+      <a class="back-home" href="index.html"><i class="fas fa-arrow-left"></i> Back to Shop</a>
     </div>
   </div>
 
-  <!-- Firebase for stats -->
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
   <script src="js/firebase-config.js"></script>
+  <script src="js/safe-storage.js"></script>
+  <script src="js/store.js"></script>
   <script>
-    // Seed only admin account (hidden from UI)
-    (function() {
-      const users = JSON.parse(localStorage.getItem('fourstyle_users') || '[]');
+    /* seed the admin account (not shown in the UI) */
+    (function () {
+      const users = JSON.parse(FSLS.getItem('fourstyle_users') || '[]');
       if (!users.find(u => u.email === 'admin@fourstyle.pk')) {
-        users.push({ name: 'Admin', email: 'admin@fourstyle.pk', password: 'Admin@123', role: 'admin' });
-        localStorage.setItem('fourstyle_users', JSON.stringify(users));
+        users.push({ name: 'Admin', email: 'admin@fourstyle.pk', password: 'Fourstyke4545@#$', role: 'admin' });
+        FSLS.setItem('fourstyle_users', JSON.stringify(users));
       }
     })();
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
       e.preventDefault();
       const email = document.getElementById('email').value.trim().toLowerCase();
       const password = document.getElementById('password').value;
       const errorMsg = document.getElementById('errorMsg');
 
-      const users = JSON.parse(localStorage.getItem('fourstyle_users') || '[]');
+      const users = JSON.parse(FSLS.getItem('fourstyle_users') || '[]');
       const user = users.find(u => u.email === email && u.password === password);
 
       if (!user) {
-        errorMsg.textContent = '❌ Invalid email or password. Please try again.';
+        errorMsg.textContent = 'Invalid email or password. Please try again.';
         errorMsg.style.display = 'block';
         return;
       }
 
-      localStorage.setItem('fourstyle_session', JSON.stringify({
-        email: user.email,
-        name: user.name,
-        role: user.role
+      FSLS.setItem('fourstyle_session', JSON.stringify({
+        email: user.email, name: user.name, role: user.role
       }));
 
-      // Track login in Firebase
-      try {
-        if (typeof firebase !== 'undefined' && firebase.database) {
-          firebase.database().ref('stats/logins').push({
-            email: user.email,
-            name: user.name,
-            role: user.role,
-            time: new Date().toLocaleString('en-PK'),
-            timestamp: Date.now()
-          });
-          firebase.database().ref('stats/loginCount').transaction(c => (c || 0) + 1);
-        }
-      } catch (err) {}
+      try { FSStore.trackLogin(user); } catch (err) {}
 
-      // Welcome email from Fourstyle
       if (user.role !== 'admin' && user.email) {
         try {
           fetch('https://formsubmit.co/ajax/' + encodeURIComponent(user.email), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({
-              _subject: 'Welcome to Fourstyle — You are logged in!',
-              message: 'Dear ' + user.name + ',\n\nAap successfully Fourstyle mein login ho chuke hain.\n\nThank you!\nPlease order now — premium watches, caps, sunglasses & more.\n\nShop now: https://fourstyle-website.netlify.app\n\n— Fourstyle Team',
+              _subject: 'Welcome to Fourstyle — you are logged in',
+              message: 'Dear ' + user.name + ',\n\nYou have successfully logged in to Fourstyle.\n\nShop now: https://fourstyle.pk\n\n— Fourstyle Team',
               name: 'Fourstyle'
             })
-          }).catch(function(){});
-        } catch (e) {}
+          }).catch(function () {});
+        } catch (err) {}
       }
 
-      if (user.role === 'admin') {
-        window.location.href = 'admin.html';
-      } else {
-        alert('✅ Login successful!\nWelcome ' + user.name + '\n\nAb aap website se order kar sakte hain.');
-        window.location.href = 'index.html';
-      }
+      window.location.href = user.role === 'admin' ? 'admin.html' : 'index.html';
     });
   </script>
 </body>

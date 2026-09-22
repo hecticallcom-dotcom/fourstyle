@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up | Fourstyle</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="images/logo.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page">
+  <div class="auth-bg" aria-hidden="true"><span></span><span></span></div>
+
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-logo">
+        <img src="images/logo.jpeg" alt="Fourstyle">
+        <h1 class="auth-welcome">Welcome <em>4Style</em></h1>
+        <p class="auth-subtitle">Create your account</p>
+        <p class="auth-tagline">Join the Fourstyle family today</p>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Your full name" required autocomplete="name">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Minimum 6 characters" required minlength="6" autocomplete="new-password">
+          <i class="fas fa-lock"></i>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" id="confirmPassword" placeholder="Repeat password" required autocomplete="new-password">
+          <i class="fas fa-lock"></i>
+        </div>
+        <button type="submit" class="auth-btn-submit">
+          <i class="fas fa-user-plus"></i> Sign Up
+        </button>
+      </form>
+
+      <div class="auth-links">
+        Already have an account? <a href="login.html">Login</a>
+      </div>
+      <a class="back-home" href="index.html"><i class="fas fa-arrow-left"></i> Back to Shop</a>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/safe-storage.js"></script>
+  <script src="js/store.js"></script>
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirmPassword').value;
+      const errorMsg = document.getElementById('errorMsg');
+      const successMsg = document.getElementById('successMsg');
+
+      errorMsg.style.display = 'none';
+      successMsg.style.display = 'none';
+
+      if (password !== confirm) {
+        errorMsg.textContent = 'Passwords do not match.';
+        errorMsg.style.display = 'block'; return;
+      }
+      if (password.length < 6) {
+        errorMsg.textContent = 'Password must be at least 6 characters.';
+        errorMsg.style.display = 'block'; return;
+      }
+
+      const users = JSON.parse(FSLS.getItem('fourstyle_users') || '[]');
+      if (users.find(u => u.email === email)) {
+        errorMsg.textContent = 'This email is already registered. Please login.';
+        errorMsg.style.display = 'block'; return;
+      }
+
+      users.push({ name, email, password, role: 'user' });
+      FSLS.setItem('fourstyle_users', JSON.stringify(users));
+      FSLS.setItem('fourstyle_session', JSON.stringify({ email, name, role: 'user' }));
+
+      try {
+        FSStore._write('stats/registrations/r' + Date.now(), {
+          name, email, date: new Date().toLocaleString('en-PK'), timestamp: Date.now()
+        });
+      } catch (err) {}
+
+      successMsg.textContent = 'Account created. Taking you to the shop…';
+      successMsg.style.display = 'block';
+      setTimeout(function () { window.location.href = 'index.html'; }, 1100);
+    });
+  </script>
+</body>
+</html>

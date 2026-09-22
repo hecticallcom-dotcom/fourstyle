@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Fourstyle</title>
+  <meta name="description" content="Contact Fourstyle — send us your question, WhatsApp number and address and our team will reply quickly.">
+  <link rel="canonical" href="https://fourstyle.pk/contact.html">
+  <link rel="icon" href="images/logo.jpeg">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/fourstyle-v2.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="header-top">
+      <a class="logo" href="index.html" aria-label="Fourstyle home">
+        <img src="images/logo.jpeg" alt="Fourstyle Logo" class="logo-img">
+      </a>
+      <div class="header-icons">
+        <a class="auth-btn" href="login.html" title="Login / Account"><i class="fas fa-user"></i></a>
+        <a class="auth-btn" href="index.html" title="Shop"><i class="fas fa-shopping-bag"></i></a>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#products">All Products</a></li>
+        <li><a href="index.html#categories">Accessories</a></li>
+        <li><a class="active" href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="page-hero">
+    <h1>CONTACT US</h1>
+    <p>Any question about an order, a product or delivery? Send it here and we will get back to you.</p>
+  </section>
+
+  <main class="container">
+    <div class="contact-layout">
+
+      <!-- Form -->
+      <div class="contact-form-card">
+        <h2>Send us your question</h2>
+        <p class="form-intro">Fill in the form below. Your message goes straight to the Fourstyle team and appears in our admin panel.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="field">
+            <label for="cEmail">Email address <span>*</span></label>
+            <input type="email" id="cEmail" name="email" placeholder="you@example.com" required>
+          </div>
+
+          <div class="field">
+            <label for="cWhatsapp">WhatsApp number <span>*</span></label>
+            <input type="tel" id="cWhatsapp" name="whatsapp" placeholder="03XX XXXXXXX" required>
+            <p class="hint">We usually reply on WhatsApp first — it is the fastest way to reach you.</p>
+          </div>
+
+          <div class="field">
+            <label for="cAddress">Address <span>*</span></label>
+            <textarea id="cAddress" name="address" rows="3" placeholder="House / street, area, city" required></textarea>
+          </div>
+
+          <div class="field">
+            <label for="cQuestion">Your question <span>*</span></label>
+            <textarea id="cQuestion" name="question" rows="5" placeholder="Type any question you have about products, sizes, delivery, payment or an existing order…" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" id="contactSubmit">
+            <i class="fas fa-paper-plane"></i> Send message
+          </button>
+          <div class="form-status" id="contactStatus"></div>
+        </form>
+      </div>
+
+      <!-- Side info -->
+      <aside class="contact-side-card">
+        <h3>Reach us directly</h3>
+        <div class="contact-line">
+          <i class="fab fa-whatsapp"></i>
+          <div><strong>WhatsApp</strong><span>+92 311 0199257</span></div>
+        </div>
+        <div class="contact-line">
+          <i class="fas fa-envelope"></i>
+          <div><strong>Email</strong><span>support@fourstyle.pk</span></div>
+        </div>
+        <div class="contact-line">
+          <i class="fas fa-clock"></i>
+          <div><strong>Support hours</strong><span>Every day, 10:00 AM – 10:00 PM (PKT)</span></div>
+        </div>
+        <div class="contact-line">
+          <i class="fas fa-truck"></i>
+          <div><strong>Delivery</strong><span>Nationwide in 3–5 business days · Rs 250 advance delivery charges</span></div>
+        </div>
+        <a href="https://wa.me/923110199257" class="btn btn-whatsapp btn-block" style="margin-top:18px;" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border:0;">
+        <p>© 2026 Fourstyle. All rights reserved. | <a href="index.html" style="color:var(--gold);">Back to shop</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/923110199257" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/safe-storage.js"></script>
+  <script src="js/store.js"></script>
+  <script>
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('contactStatus');
+    const submitBtn = document.getElementById('contactSubmit');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      status.innerHTML = '';
+
+      const msg = {
+        type: 'Contact form',
+        email: form.email.value.trim(),
+        whatsapp: form.whatsapp.value.trim(),
+        address: form.address.value.trim(),
+        question: form.question.value.trim(),
+        date: new Date().toLocaleString('en-PK'),
+        timestamp: Date.now(),
+        status: 'New'
+      };
+
+      if (!msg.email || !msg.whatsapp || !msg.address || !msg.question) {
+        status.innerHTML = '<div class="slip-error">Please fill in all four fields before sending.</div>';
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(msg.email)) {
+        status.innerHTML = '<div class="slip-error">Please enter a valid email address.</div>';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
+
+      try { await FSStore.saveMessage(msg); } catch (err) { console.warn(err); }
+
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send message';
+      form.reset();
+      status.innerHTML =
+        '<div class="slip-success"><i class="fas fa-check-circle"></i><div>' +
+        '<strong>Thank you — your message has been sent.</strong>' +
+        '<p>Our team will reply on your WhatsApp number or email within a few hours.</p></div></div>';
+      status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+</body>
+</html>
