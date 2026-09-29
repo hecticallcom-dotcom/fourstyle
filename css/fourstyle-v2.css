@@ -265,7 +265,6 @@ body.no-scroll { overflow: hidden; }
 .checkout-modal h3 { font-size: 15px; margin: 22px 0 12px; }
 .payment-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
 .payment-option { cursor: pointer; }
-.payment-option input { position: absolute; opacity: 0; pointer-events: none; }
 .payment-option .payment-card {
   display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%;
   padding: 14px 10px; border: 1.5px solid var(--border); border-radius: 12px;
@@ -285,7 +284,7 @@ body.no-scroll { overflow: hidden; }
 }
 .account-box h4 {
   font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
-  color: var(--gold-dark); margin-bottom: 12px;
+  color: var(--gold-dark); font-weight: 700;
 }
 .account-row {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
@@ -420,3 +419,98 @@ body.no-scroll { overflow: hidden; }
 
 /* fallback shown when a product image URL is unreachable */
 img.img-fallback { object-fit: contain !important; padding: 12px; background: #faf7ef; }
+
+/* ========== EXTRA MOBILE FIXES (card text + load speed) ========== */
+@media (max-width: 600px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .product-info {
+    padding: 8px 8px 12px;
+    gap: 4px;
+  }
+  .product-brand {
+    font-size: 10px;
+    letter-spacing: 0.8px;
+  }
+  .product-info h3 {
+    font-size: 12.5px;
+    min-height: 2.5em;
+    -webkit-line-clamp: 2;
+  }
+  .stock-tag { font-size: 10.5px; }
+
+  /* Price button: stack so text never gets cut off */
+  .price-btn {
+    flex-wrap: wrap;
+    gap: 2px 6px;
+    padding: 8px 8px;
+    align-items: center;
+  }
+  .price-btn-main {
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .price-btn-old {
+    font-size: 11px;
+  }
+  .price-btn-cta {
+    flex: 0 0 100%;
+    margin-left: 0 !important;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    padding-top: 2px;
+    border-top: 1px dashed #eee;
+    margin-top: 2px;
+  }
+  .product-actions .add-to-cart {
+    font-size: 11px;
+    padding: 9px 6px;
+  }
+  .product-actions .add-to-cart i {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 380px) {
+  .product-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .product-img { height: 130px; }
+  .price-btn-main { font-size: 13px; }
+  .product-info h3 { font-size: 12px; }
+}
+
+/* Faster perceived load: reserve space for images to avoid layout shift */
+.product-img {
+  aspect-ratio: 1 / 1.05;
+  height: auto;
+  min-height: 140px;
+}
+.product-img img {
+  aspect-ratio: 1 / 1.05;
+}
+.category-card .category-img img {
+  aspect-ratio: 1;
+}
+
+/* Soft loading placeholder while images load */
+.product-img {
+  background: linear-gradient(90deg, #f5f5f5 25%, #ebebeb 50%, #f5f5f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+.product-img img {
+  background: #fff;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.product-img img[src]:not([src=""]) {
+  animation: none;
+  background: transparent;
+}
